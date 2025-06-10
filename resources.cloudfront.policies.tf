@@ -28,8 +28,8 @@ locals {
 
 locals {
   cloudfront_cache_policies = {
-    "production" = local.cloudfront_cache_policies_common
-    "empty" = local.cloudfront_cache_policies_empty
+    "prod" = local.cloudfront_cache_policies_common
+    "default" = local.cloudfront_cache_policies_empty
   }
 
   cloudfront_cache_policies_empty = {}
@@ -100,8 +100,9 @@ resource "aws_cloudfront_cache_policy" "caching" {
 }
 
 locals {
-  cloudfront_requests_policies = {
-    "production" = local.cloudfront_requests_policies_common
+  cloudfront_requests_policies = { #TODO abstract!!
+    "prod" = local.cloudfront_requests_policies_common
+    "default" = local.cloudfront_requests_policies_common
     "empty" = local.cloudfront_requests_policies_empty
   }
 

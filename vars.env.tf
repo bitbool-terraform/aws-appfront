@@ -3,7 +3,7 @@ variable "systemenv" { type = string }
 variable "aws_region" { type = string }
 
 variable "base_workspace" { type = string }
-variable "waf_workspace" { type = string }
+variable "waf_workspace" { default = null }
 
 #variable "app_servers" {}
 #variable "appsrvGroups" {}
