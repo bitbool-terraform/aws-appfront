@@ -7,9 +7,24 @@ output "existing_targets" {
 data "aws_lb_target_group" "existing" {
   for_each = var.existing_lb_target_groups
 
-  tags = lookup(each.value,"tags",null)
-  arn = lookup(each.value,"arn",null)
-  name = lookup(each.value,"name",null)
+  tags = each.key == "empty" ? null : lookup(each.value,"tags",null)
+  arn = each.key == "empty" ? try(aws_lb_target_group.empty[0].arn,null) : lookup(each.value,"arn",null) 
+  name = each.key == "empty" ? null : lookup(each.value,"name",null)
+
+  depends_on = [aws_lb_target_group.empty]
+}
+
+
+resource "aws_lb_target_group" "empty" {
+  #for_each = var.existing_lb_target_groups 
+  count = lookup(var.existing_lb_target_groups,"empty",false) == false ? 0 : 1
+
+  name     = substr(format("%s-%s-%s",var.project,var.systemenv,"empty"),0,32)
+  vpc_id   = local.vpc_id
+  ip_address_type = "ipv4"
+  target_type = "ip"
+
+  tags = merge( {Name = format("%s-%s-%s",var.project,var.systemenv,"empty"), "alb-target" =  format("%s-%s-%s",var.project,var.systemenv,"empty") }, local.tags_module_alb,)
 }
 
 
