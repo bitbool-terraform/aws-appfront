@@ -23,6 +23,8 @@ resource "aws_lb_target_group" "empty" {
   vpc_id   = local.vpc_id
   ip_address_type = "ipv4"
   target_type = "ip"
+  port     = 80
+  protocol = "HTTP"
 
   tags = merge( {Name = format("%s-%s-%s",var.project,var.systemenv,"empty"), "alb-target" =  format("%s-%s-%s",var.project,var.systemenv,"empty") }, local.tags_module_alb,)
 }
