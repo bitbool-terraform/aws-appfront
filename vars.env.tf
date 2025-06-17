@@ -11,8 +11,8 @@ variable "waf_workspace" { default = null }
 #variable "db_servers" {}
 #variable "dbsrvGroups" {}
 
-variable "accelerators" {}
-variable "cloudfronts" {}
+# variable "accelerators" {}
+# variable "cloudfronts" {}
 variable "app_lbs" {}
 variable "apps" {}
 variable "existing_lb_target_groups" {}
