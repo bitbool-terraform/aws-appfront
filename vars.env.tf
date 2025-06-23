@@ -28,6 +28,8 @@ variable "welcome_page" { type = string }
 
 variable "app_certificates" {}
 
+variable "waf_arns" { default = {} }
+
 #variable "db_volumes" {}
 #variable "db_volumes_attachments" {}
 
